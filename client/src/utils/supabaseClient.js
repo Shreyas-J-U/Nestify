@@ -9,7 +9,7 @@ export const loginWithGoogle = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: "http://localhost:5173/dashboard", // change in production
+      redirectTo: "https://nestify-w18c.onrender.com/dashboard", // change in production
     },
   });
 
