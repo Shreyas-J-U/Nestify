@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     let mounted = true;
 
     const initAuth = async () => {
-      // 1️⃣ Get the current session
+      //  Get the current session
       const {
         data: { session },
         error,
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
     initAuth();
 
-    // 2️⃣ Listen for auth changes (login/logout/sign-up)
+    //  Listen for auth changes (login/logout/sign-up)
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {

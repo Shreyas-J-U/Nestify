@@ -23,12 +23,24 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Check current user on mount
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user);
-    });
+    const checkUser = async () => {
+      try {
+        const { data } = await supabase.auth.getUser();
+        setUser(data.user);
+      } catch (error) {
+        console.error('Error getting user:', error);
+      } finally {
+        setIsLoading(false);
+        // Trigger animations after loading is complete
+        setTimeout(() => setIsVisible(true), 100);
+      }
+    };
+
+    checkUser();
 
     // Listen for sign-in/sign-out changes
     const { data: authListener } = supabase.auth.onAuthStateChange(
@@ -36,9 +48,6 @@ export default function HomePage() {
         setUser(session?.user ?? null);
       }
     );
-
-    // Trigger animations
-    setTimeout(() => setIsVisible(true), 100);
 
     return () => {
       authListener.subscription.unsubscribe();
@@ -72,6 +81,76 @@ export default function HomePage() {
     { number: "150+", label: "Countries" },
     { number: "24/7", label: "Support" }
   ];
+
+  // Loading Spinner Component
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center">
+        {/* Animated background elements for loading */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full filter blur-3xl animate-pulse"></div>
+          <div
+            className="absolute top-3/4 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full filter blur-3xl animate-pulse"
+            style={{ animationDelay: "2s" }}
+          ></div>
+          <div
+            className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full filter blur-3xl animate-pulse"
+            style={{ animationDelay: "4s" }}
+          ></div>
+        </div>
+
+        {/* Main Loading Spinner */}
+        <div className="relative z-10 flex flex-col items-center space-y-6">
+          {/* Logo with spinner */}
+          <div className="relative group">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl blur opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative p-4 bg-white rounded-2xl shadow-xl">
+              <Cloud className="w-12 h-12 text-blue-600 animate-pulse" />
+              <Sparkles className="w-4 h-4 text-yellow-500 absolute -top-1 -right-1 animate-ping" />
+            </div>
+          </div>
+
+          {/* Spinning Circle Loader */}
+          <div className="relative">
+            {/* Outer ring */}
+            <div className="w-16 h-16 border-4 border-slate-200 rounded-full animate-spin">
+              {/* Inner gradient ring */}
+              <div className="absolute top-0 left-0 w-full h-full border-4 border-transparent border-t-blue-500 border-r-indigo-500 rounded-full animate-spin"></div>
+            </div>
+            
+            {/* Center dot */}
+            <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transform -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
+          </div>
+
+          {/* Loading Text */}
+          <div className="text-center space-y-2">
+            <h3 className="text-xl font-semibold text-slate-800 animate-pulse">
+              Nestify
+            </h3>
+            <p className="text-slate-600 font-medium">
+              Preparing your experience...
+            </p>
+          </div>
+
+          {/* Floating mini loaders */}
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 bg-blue-400 rounded-full opacity-30"
+                style={{
+                  left: `${20 + Math.random() * 60}%`,
+                  top: `${20 + Math.random() * 60}%`,
+                  animation: `float ${3 + Math.random() * 2}s linear infinite`,
+                  animationDelay: `${Math.random() * 2}s`,
+                }}
+              ></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 overflow-hidden">
