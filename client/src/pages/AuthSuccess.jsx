@@ -6,8 +6,17 @@ export default function AuthSuccess() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
+    let token;
+
+    // Check query parameters
+    const queryParams = new URLSearchParams(window.location.search);
+    token = queryParams.get("token");
+
+    // If not in query, check hash fragment (OAuth)
+    if (!token && window.location.hash) {
+      const hashParams = new URLSearchParams(window.location.hash.substring(1)); // remove '#'
+      token = hashParams.get("access_token") || hashParams.get("token");
+    }
 
     if (token) {
       localStorage.setItem("authToken", token);
