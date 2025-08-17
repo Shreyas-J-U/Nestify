@@ -41,7 +41,7 @@ export default function DashboardUI(props) {
     target: null,
   });
 
-  // State for mobile search modal
+  // State for mobile search
   const [showMobileSearch, setShowMobileSearch] = useState(false);
 
   const {
@@ -147,7 +147,13 @@ export default function DashboardUI(props) {
             <div className="relative w-16 h-16 mx-auto mb-6">
               <div className="absolute inset-0 border-4 border-blue-100 rounded-full"></div>
               <div className="absolute inset-0 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-              <div className="absolute inset-2 border-2 border-blue-200 border-b-transparent rounded-full animate-spin animate-reverse" style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}></div>
+              <div
+                className="absolute inset-2 border-2 border-blue-200 border-b-transparent rounded-full animate-spin animate-reverse"
+                style={{
+                  animationDirection: "reverse",
+                  animationDuration: "0.8s",
+                }}
+              ></div>
             </div>
             <h3 className="text-xl font-semibold text-slate-800 mb-2">
               Uploading File
@@ -220,8 +226,8 @@ export default function DashboardUI(props) {
               }}
               disabled={uploading}
               className={`w-full flex items-center space-x-3 px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl transition-colors text-sm sm:text-base ${
-                uploading 
-                  ? "bg-slate-300 text-slate-500 cursor-not-allowed" 
+                uploading
+                  ? "bg-slate-300 text-slate-500 cursor-not-allowed"
                   : "bg-blue-500 text-white hover:bg-blue-600"
               }`}
             >
@@ -237,8 +243,8 @@ export default function DashboardUI(props) {
               }}
               disabled={uploading}
               className={`w-full flex items-center space-x-3 px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl transition-colors text-sm sm:text-base ${
-                uploading 
-                  ? "text-slate-400 cursor-not-allowed" 
+                uploading
+                  ? "text-slate-400 cursor-not-allowed"
                   : "text-slate-600 hover:bg-slate-100"
               }`}
             >
@@ -252,8 +258,8 @@ export default function DashboardUI(props) {
               }}
               disabled={uploading}
               className={`w-full flex items-center space-x-3 px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl transition-colors text-sm sm:text-base ${
-                uploading 
-                  ? "text-slate-400 cursor-not-allowed" 
+                uploading
+                  ? "text-slate-400 cursor-not-allowed"
                   : "text-slate-600 hover:bg-slate-100"
               }`}
             >
@@ -287,10 +293,7 @@ export default function DashboardUI(props) {
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-xs font-semibold text-slate-700">
-                    {Math.round(
-                      (storageUsed / (100 * 1024 * 1024)) * 100
-                    )}
-                    %
+                    {Math.round((storageUsed / (100 * 1024 * 1024)) * 100)}%
                   </span>
                 </div>
               </div>
@@ -329,8 +332,8 @@ export default function DashboardUI(props) {
             }}
             disabled={uploading}
             className={`w-full flex items-center space-x-3 px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl transition-colors text-sm sm:text-base ${
-              uploading 
-                ? "text-slate-400 cursor-not-allowed" 
+              uploading
+                ? "text-slate-400 cursor-not-allowed"
                 : "text-slate-600 hover:bg-red-50 hover:text-red-600"
             }`}
           >
@@ -355,55 +358,98 @@ export default function DashboardUI(props) {
                 >
                   <Menu className="w-5 h-5 text-slate-600" />
                 </button>
-                {/* Breadcrumb */}
-                <div className="flex items-center space-x-1 sm:space-x-2 min-w-0 overflow-x-auto">
-                  {(currentFolderId || isSearchMode) && (
-                    <button
-                      onClick={goBack}
-                      disabled={uploading}
-                      className={`p-1.5 sm:p-2 rounded-lg transition-colors flex-shrink-0 ${
-                        uploading ? "text-slate-400 cursor-not-allowed" : "hover:bg-slate-100"
-                      }`}
-                    >
-                      <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 text-slate-600" />
-                    </button>
-                  )}
-                  {currentFolderId && !isSearchMode && (
-                    <button
-                      onClick={goHome}
-                      disabled={uploading}
-                      className={`hidden sm:block p-2 rounded-lg transition-colors flex-shrink-0 ${
-                        uploading ? "text-slate-400 cursor-not-allowed" : "hover:bg-slate-100"
-                      }`}
-                    >
-                      <Home className="w-4 h-4 text-slate-600" />
-                    </button>
-                  )}
-                  <div className="flex items-center space-x-1 text-xs sm:text-sm text-slate-600 min-w-0">
-                    {isSearchMode ? (
-                      <span className="truncate">Search: "{searchQuery}"</span>
-                    ) : (
-                      <>
-                        <div className="hidden sm:flex items-center space-x-1">
-                          {folderStack.map((folder, index) => (
-                            <span key={index} className="flex items-center">
-                              <span className="truncate max-w-24">{folder.name}</span>
-                              <span className="mx-1">/</span>
-                            </span>
-                          ))}
-                        </div>
-                        <span className="font-medium text-slate-800 truncate">
-                          {currentFolderName}
+                {/* Breadcrumb - Only show when not in mobile search mode */}
+                {!showMobileSearch && (
+                  <div className="flex items-center space-x-1 sm:space-x-2 min-w-0 overflow-x-auto">
+                    {(currentFolderId || isSearchMode) && (
+                      <button
+                        onClick={goBack}
+                        disabled={uploading}
+                        className={`p-1.5 sm:p-2 rounded-lg transition-colors flex-shrink-0 ${
+                          uploading
+                            ? "text-slate-400 cursor-not-allowed"
+                            : "hover:bg-slate-100"
+                        }`}
+                      >
+                        <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 text-slate-600" />
+                      </button>
+                    )}
+                    {currentFolderId && !isSearchMode && (
+                      <button
+                        onClick={goHome}
+                        disabled={uploading}
+                        className={`hidden sm:block p-2 rounded-lg transition-colors flex-shrink-0 ${
+                          uploading
+                            ? "text-slate-400 cursor-not-allowed"
+                            : "hover:bg-slate-100"
+                        }`}
+                      >
+                        <Home className="w-4 h-4 text-slate-600" />
+                      </button>
+                    )}
+                    <div className="flex items-center space-x-1 text-xs sm:text-sm text-slate-600 min-w-0">
+                      {isSearchMode ? (
+                        <span className="truncate">
+                          Search: "{searchQuery}"
                         </span>
-                      </>
+                      ) : (
+                        <>
+                          <div className="hidden sm:flex items-center space-x-1">
+                            {folderStack.map((folder, index) => (
+                              <span key={index} className="flex items-center">
+                                <span className="truncate max-w-24">
+                                  {folder.name}
+                                </span>
+                                <span className="mx-1">/</span>
+                              </span>
+                            ))}
+                          </div>
+                          <span className="font-medium text-slate-800 truncate">
+                            {currentFolderName}
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Mobile Search Input - Full width when active */}
+                {showMobileSearch && (
+                  <div className="flex-1 relative sm:hidden">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input
+                      type="text"
+                      placeholder="Search files and folders..."
+                      value={searchQuery}
+                      autoFocus
+                      disabled={uploading}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setSearchQuery(val);
+                        searchFilesAndFolders(val);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Escape") {
+                          setShowMobileSearch(false);
+                          setSearchQuery("");
+                        }
+                      }}
+                      className={`w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm ${
+                        uploading
+                          ? "bg-slate-50 text-slate-400 cursor-not-allowed"
+                          : ""
+                      }`}
+                    />
+                    {searching && (
+                      <RefreshCw className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-blue-500 animate-spin" />
                     )}
                   </div>
-                </div>
+                )}
               </div>
 
               {/* Actions */}
               <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
-                {/* Search - Hidden on mobile, shown in expanded form on larger screens */}
+                {/* Desktop Search - Hidden on mobile, shown in expanded form on larger screens */}
                 <div className="hidden sm:block relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
@@ -417,7 +463,9 @@ export default function DashboardUI(props) {
                       searchFilesAndFolders(val);
                     }}
                     className={`pl-10 pr-4 py-2 w-48 lg:w-80 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm ${
-                      uploading ? "bg-slate-50 text-slate-400 cursor-not-allowed" : ""
+                      uploading
+                        ? "bg-slate-50 text-slate-400 cursor-not-allowed"
+                        : ""
                     }`}
                   />
                   {searching && (
@@ -425,15 +473,28 @@ export default function DashboardUI(props) {
                   )}
                 </div>
 
-                {/* Mobile Search Button */}
+                {/* Mobile Search Toggle Button */}
                 <button
                   className={`sm:hidden p-2 rounded-lg transition-colors ${
-                    uploading ? "text-slate-400 cursor-not-allowed" : "hover:bg-slate-100"
+                    uploading
+                      ? "text-slate-400 cursor-not-allowed"
+                      : "hover:bg-slate-100"
                   }`}
-                  onClick={() => setShowMobileSearch(true)}
+                  onClick={() => {
+                    if (showMobileSearch) {
+                      setShowMobileSearch(false);
+                      setSearchQuery("");
+                    } else {
+                      setShowMobileSearch(true);
+                    }
+                  }}
                   disabled={uploading}
                 >
-                  <Search className="w-5 h-5 text-slate-600" />
+                  {showMobileSearch ? (
+                    <X className="w-5 h-5 text-slate-600" />
+                  ) : (
+                    <Search className="w-5 h-5 text-slate-600" />
+                  )}
                 </button>
 
                 {/* View Toggle */}
@@ -444,7 +505,9 @@ export default function DashboardUI(props) {
                     className={`p-1.5 sm:p-2 rounded-md transition-colors ${
                       viewMode === "grid"
                         ? "bg-white shadow-sm"
-                        : uploading ? "cursor-not-allowed" : "hover:bg-slate-200"
+                        : uploading
+                        ? "cursor-not-allowed"
+                        : "hover:bg-slate-200"
                     }`}
                   >
                     <Grid3X3 className="w-3 h-3 sm:w-4 sm:h-4 text-slate-600" />
@@ -455,7 +518,9 @@ export default function DashboardUI(props) {
                     className={`p-1.5 sm:p-2 rounded-md transition-colors ${
                       viewMode === "list"
                         ? "bg-white shadow-sm"
-                        : uploading ? "cursor-not-allowed" : "hover:bg-slate-200"
+                        : uploading
+                        ? "cursor-not-allowed"
+                        : "hover:bg-slate-200"
                     }`}
                   >
                     <List className="w-3 h-3 sm:w-4 sm:h-4 text-slate-600" />
@@ -473,7 +538,9 @@ export default function DashboardUI(props) {
                   }}
                   disabled={uploading}
                   className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
-                    uploading ? "text-slate-400 cursor-not-allowed" : "hover:bg-slate-100"
+                    uploading
+                      ? "text-slate-400 cursor-not-allowed"
+                      : "hover:bg-slate-100"
                   }`}
                 >
                   <RefreshCw className="w-4 h-4 sm:w-4 sm:h-4 text-slate-600" />
@@ -545,7 +612,9 @@ export default function DashboardUI(props) {
                   <div
                     key={folder.id}
                     className={`relative group bg-white rounded-xl p-3 sm:p-4 border border-slate-200 hover:shadow-md transition-all ${
-                      uploading ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+                      uploading
+                        ? "cursor-not-allowed opacity-50"
+                        : "cursor-pointer"
                     }`}
                     onClick={() => !uploading && openFolder(folder)}
                     onDrop={(e) => {
@@ -577,7 +646,9 @@ export default function DashboardUI(props) {
                         }}
                         disabled={uploading}
                         className={`p-1 rounded-lg transition-colors bg-white/80 backdrop-blur-sm shadow-sm ${
-                          uploading ? "cursor-not-allowed opacity-50" : "hover:bg-slate-100"
+                          uploading
+                            ? "cursor-not-allowed opacity-50"
+                            : "hover:bg-slate-100"
                         }`}
                       >
                         <MoreHorizontal className="w-3 h-3 sm:w-4 sm:h-4 text-slate-600" />
@@ -700,11 +771,14 @@ export default function DashboardUI(props) {
                     {/* Always Visible Triple Dot Menu */}
                     <div className="absolute top-1 right-1 sm:top-2 sm:right-2">
                       <button
-                        onClick={() => !uploading && setOpenMenuId(openMenuId === f.id ? null : f.id)}
+                        onClick={() =>
+                          !uploading &&
+                          setOpenMenuId(openMenuId === f.id ? null : f.id)
+                        }
                         disabled={uploading}
                         className={`p-1 rounded-lg shadow-sm transition-colors backdrop-blur-sm ${
-                          uploading 
-                            ? "bg-slate-200 cursor-not-allowed" 
+                          uploading
+                            ? "bg-slate-200 cursor-not-allowed"
                             : "bg-white/90 hover:bg-white"
                         }`}
                       >
@@ -714,7 +788,9 @@ export default function DashboardUI(props) {
                         <div className="absolute right-0 mt-1 w-40 sm:w-48 bg-white rounded-lg shadow-lg border border-slate-200 z-20">
                           <button
                             className="w-full text-left px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm text-slate-700 hover:bg-slate-50 transition-colors first:rounded-t-lg"
-                            onClick={() => window.open(f.preview_url || "#", "_blank")}
+                            onClick={() =>
+                              window.open(f.preview_url || "#", "_blank")
+                            }
                           >
                             <Eye className="w-3 h-3 sm:w-4 sm:h-4 inline mr-2" />
                             Preview
@@ -762,7 +838,11 @@ export default function DashboardUI(props) {
               </div>
             ) : (
               // List View - Responsive table
-              <div className={`bg-white rounded-xl border border-slate-200 overflow-hidden ${uploading ? "opacity-50" : ""}`}>
+              <div
+                className={`bg-white rounded-xl border border-slate-200 overflow-hidden ${
+                  uploading ? "opacity-50" : ""
+                }`}
+              >
                 <div className="hidden sm:grid grid-cols-12 gap-4 p-4 bg-slate-50 border-b border-slate-200 text-sm font-medium text-slate-600">
                   <div className="col-span-6">Name</div>
                   <div className="col-span-2">Size</div>
@@ -785,9 +865,13 @@ export default function DashboardUI(props) {
                     {/* Mobile Layout */}
                     <div className="sm:hidden">
                       <div className="flex items-center space-x-3 mb-2">
-                        <span className="text-lg flex-shrink-0">{getFileIcon(f.mime_type)}</span>
+                        <span className="text-lg flex-shrink-0">
+                          {getFileIcon(f.mime_type)}
+                        </span>
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-slate-800 truncate">{f.name}</p>
+                          <p className="font-medium text-slate-800 truncate">
+                            {f.name}
+                          </p>
                           <div className="flex items-center space-x-4 text-xs text-slate-500">
                             <span>{formatBytes(f.size)}</span>
                             <span>
@@ -796,10 +880,15 @@ export default function DashboardUI(props) {
                           </div>
                         </div>
                         <button
-                          onClick={() => !uploading && setOpenMenuId(openMenuId === f.id ? null : f.id)}
+                          onClick={() =>
+                            !uploading &&
+                            setOpenMenuId(openMenuId === f.id ? null : f.id)
+                          }
                           disabled={uploading}
                           className={`p-1 rounded transition-colors relative flex-shrink-0 ${
-                            uploading ? "cursor-not-allowed" : "hover:bg-slate-200"
+                            uploading
+                              ? "cursor-not-allowed"
+                              : "hover:bg-slate-200"
                           }`}
                         >
                           <MoreHorizontal className="w-4 h-4 text-slate-600" />
@@ -809,8 +898,12 @@ export default function DashboardUI(props) {
                     {/* Desktop Layout */}
                     <div className="hidden sm:contents">
                       <div className="col-span-6 flex items-center space-x-3 min-w-0">
-                        <span className="text-lg flex-shrink-0">{getFileIcon(f.mime_type)}</span>
-                        <span className="font-medium text-slate-800 truncate">{f.name}</span>
+                        <span className="text-lg flex-shrink-0">
+                          {getFileIcon(f.mime_type)}
+                        </span>
+                        <span className="font-medium text-slate-800 truncate">
+                          {f.name}
+                        </span>
                       </div>
                       <div className="col-span-2 flex items-center text-slate-600">
                         {formatBytes(f.size)}
@@ -822,10 +915,15 @@ export default function DashboardUI(props) {
                       </div>
                       <div className="col-span-1 flex items-center">
                         <button
-                          onClick={() => !uploading && setOpenMenuId(openMenuId === f.id ? null : f.id)}
+                          onClick={() =>
+                            !uploading &&
+                            setOpenMenuId(openMenuId === f.id ? null : f.id)
+                          }
                           disabled={uploading}
                           className={`p-1 rounded transition-colors relative ${
-                            uploading ? "cursor-not-allowed" : "hover:bg-slate-200"
+                            uploading
+                              ? "cursor-not-allowed"
+                              : "hover:bg-slate-200"
                           }`}
                         >
                           <MoreHorizontal className="w-4 h-4 text-slate-600" />
@@ -837,7 +935,9 @@ export default function DashboardUI(props) {
                       <div className="absolute right-4 mt-8 w-48 bg-white rounded-lg shadow-lg border border-slate-200 z-20">
                         <button
                           className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors first:rounded-t-lg"
-                          onClick={() => window.open(f.preview_url || "#", "_blank")}
+                          onClick={() =>
+                            window.open(f.preview_url || "#", "_blank")
+                          }
                         >
                           <Eye className="w-4 h-4 inline mr-2" />
                           Preview
@@ -928,8 +1028,12 @@ export default function DashboardUI(props) {
             </div>
             {file && (
               <div className="mt-4 p-3 bg-slate-50 rounded-lg">
-                <p className="text-sm font-medium text-slate-800 truncate">{file.name}</p>
-                <p className="text-xs text-slate-600">{formatBytes(file.size)}</p>
+                <p className="text-sm font-medium text-slate-800 truncate">
+                  {file.name}
+                </p>
+                <p className="text-xs text-slate-600">
+                  {formatBytes(file.size)}
+                </p>
               </div>
             )}
             <div className="flex justify-end space-x-3 mt-6">
@@ -978,17 +1082,30 @@ export default function DashboardUI(props) {
               onKeyDown={(e) => {
                 if (e.key === "Enter" && renameDialog.value.trim()) {
                   if (renameDialog.type === "file") {
-                    renameFile(renameDialog.target.id, renameDialog.value.trim());
+                    renameFile(
+                      renameDialog.target.id,
+                      renameDialog.value.trim()
+                    );
                   } else {
                     openRenameFolderModal({
                       ...renameDialog.target,
                       name: renameDialog.value.trim(),
                     });
                   }
-                  setRenameDialog({ open: false, type: null, target: null, value: "" });
+                  setRenameDialog({
+                    open: false,
+                    type: null,
+                    target: null,
+                    value: "",
+                  });
                 }
                 if (e.key === "Escape") {
-                  setRenameDialog({ open: false, type: null, target: null, value: "" });
+                  setRenameDialog({
+                    open: false,
+                    type: null,
+                    target: null,
+                    value: "",
+                  });
                 }
               }}
             />
@@ -1010,7 +1127,10 @@ export default function DashboardUI(props) {
                 onClick={() => {
                   if (renameDialog.value.trim()) {
                     if (renameDialog.type === "file") {
-                      renameFile(renameDialog.target.id, renameDialog.value.trim());
+                      renameFile(
+                        renameDialog.target.id,
+                        renameDialog.value.trim()
+                      );
                     } else {
                       openRenameFolderModal({
                         ...renameDialog.target,
@@ -1018,7 +1138,12 @@ export default function DashboardUI(props) {
                       });
                     }
                   }
-                  setRenameDialog({ open: false, type: null, target: null, value: "" });
+                  setRenameDialog({
+                    open: false,
+                    type: null,
+                    target: null,
+                    value: "",
+                  });
                 }}
                 className="py-2 px-4 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
                 disabled={!renameDialog.value.trim()}
@@ -1043,7 +1168,10 @@ export default function DashboardUI(props) {
                 {deleteDialog.type === "file" ? "file" : "folder"}
               </span>
               <br />
-              <span className="font-semibold text-slate-800">{deleteDialog.target?.name}</span>?
+              <span className="font-semibold text-slate-800">
+                {deleteDialog.target?.name}
+              </span>
+              ?
               <br />
               This action cannot be undone.
             </p>
@@ -1072,65 +1200,6 @@ export default function DashboardUI(props) {
                 className="py-2 px-4 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors"
               >
                 Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Mobile Search Modal */}
-      {showMobileSearch && !uploading && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl p-6 w-full max-w-md mx-4">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-slate-800">
-                Search Files & Folders
-              </h3>
-              <button
-                onClick={() => setShowMobileSearch(false)}
-                className="p-1 hover:bg-slate-100 rounded-lg transition-colors"
-              >
-                <X className="w-5 h-5 text-slate-600" />
-              </button>
-            </div>
-            <div className="relative mb-4">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
-              <input
-                type="text"
-                placeholder="Search files and folders..."
-                value={searchQuery}
-                autoFocus
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setSearchQuery(val);
-                  searchFilesAndFolders(val);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    setShowMobileSearch(false);
-                  }
-                  if (e.key === "Escape") {
-                    setShowMobileSearch(false);
-                  }
-                }}
-                className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
-              />
-              {searching && (
-                <RefreshCw className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-blue-500 animate-spin" />
-              )}
-            </div>
-            <div className="flex justify-end space-x-3">
-              <button
-                onClick={() => setShowMobileSearch(false)}
-                className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => setShowMobileSearch(false)}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-              >
-                Search
               </button>
             </div>
           </div>
