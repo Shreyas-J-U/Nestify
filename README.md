@@ -179,5 +179,4 @@ nestify/
 
 <hr/>
 
-<h2>📜 License</h2>
-<p>MIT License — free to use & modify.</p>
+
