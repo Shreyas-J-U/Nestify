@@ -11,14 +11,14 @@
 
 <h2>Features</h2>
 
-<h3>🔐 Authentication & Security</h3>
+<h3> Authentication & Security</h3>
 <ul>
   <li>Google OAuth + JWT-based session authentication</li>
   <li>Role-based access control (Owner, Edit, View)</li>
   <li>Protected routes & secure API permissions</li>
 </ul>
 
-<h3>📁 File Storage & Management</h3>
+<h3> File Storage & Management</h3>
 <ul>
   <li>Drag-and-drop file uploads</li>
   <li>Inline preview for images, PDFs, and documents</li>
@@ -28,7 +28,7 @@
   <li>Storage usage tracking</li>
 </ul>
 
-<h3>🔗 Sharing & Collaboration</h3>
+<h3> Sharing & Collaboration</h3>
 <ul>
   <li>Share individual files via public links</li>
   <li>Share entire drive with read-only permissions</li>
@@ -36,14 +36,14 @@
   <li>Inline previews + downloadable access</li>
 </ul>
 
-<h3>⚙️ Backend Architecture</h3>
+<h3> Backend Architecture</h3>
 <ul>
   <li>Node.js + Express REST APIs</li>
   <li>Supabase for database & object storage</li>
   <li>Modular controllers, middlewares, and permissions</li>
 </ul>
 
-<h3>🎨 Frontend UI</h3>
+<h3> Frontend UI</h3>
 <ul>
   <li>React (Vite) + Tailwind CSS</li>
   <li>Modern dashboard UI with gradients & animations</li>
@@ -53,7 +53,7 @@
 
 <hr/>
 
-<h2>🛠️ Tech Stack</h2>
+<h2> Tech Stack</h2>
 
 <h3>Frontend</h3>
 <ul>
@@ -92,7 +92,7 @@
 <img width="1832" height="901" alt="ss4" src="https://github.com/user-attachments/assets/35864b02-796b-4e6c-8ae6-3531aa22397c" />
 
 
-<h2>📦 How to Run Locally</h2>
+<h2> How to Run Locally</h2>
 
 <h3>1. Clone the Repo</h3>
 <pre>
@@ -136,7 +136,7 @@ VITE_SUPABASE_KEY=your_anon_key
 
 <hr/>
 
-<h2>🧩 Folder Structure</h2>
+<h2> Folder Structure</h2>
 <pre>
 nestify/
 │── backend/
