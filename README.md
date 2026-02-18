@@ -168,16 +168,17 @@ nestify/
   <li>Offline sync</li>
 </ul>
 
-<hr/>
+---
 
-<h2>👤 Author</h2>
-<p>
-  <strong>Shreyas J U</strong>
-  📧 <a href="mailto:sshreyasju@gmail.com">sshreyasju@gmail.com</a><br/>
-  🔗 <a href="https://github.com/Shreyas-J-U">GitHub Profile</a>
-  [![Portfolio](https://img.shields.io/badge/Portfolio-2563eb?style=for-the-badge&logo=react&logoColor=white)](https://shreyas-portfolio-ten.vercel.app/)
-</p>
+## 👤 Author
 
-<hr/>
+**Shreyas J U**  
+_To Learn and build together._
+
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Shreyas-J-U)
+[![Portfolio](https://img.shields.io/badge/Portfolio-2563eb?style=for-the-badge&logo=react&logoColor=white)](https://shreyas-portfolio-ten.vercel.app/)
+
+---
+
 
 
